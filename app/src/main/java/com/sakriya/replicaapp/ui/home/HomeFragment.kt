@@ -4,28 +4,47 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sakriya.replicaapp.R
+import model.Student
+import model.StudentAdapter
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var recyclerView: RecyclerView
+
+    private var lstStudent = ArrayList<Student>()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+            inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        val view =  inflater.inflate(R.layout.student_layout, container, false)
+
+
+        recyclerView = view.findViewById(R.id.recyclerView)
+
+
+        val adapter =StudentAdapter(lstStudent)
+        recyclerView.layoutManager =LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+
+        return view
     }
+
+    private fun loadStudent(){
+
+        lstStudent.add(Student("",""))
+    }
+
+
+
 }
