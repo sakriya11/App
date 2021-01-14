@@ -1,5 +1,6 @@
 package com.sakriya.replicaapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -18,5 +19,13 @@ class Login : AppCompatActivity() {
         etUser = findViewById(R.id.etUser)
         etPass = findViewById(R.id.etPass)
         btnLogin = findViewById(R.id.btnLogin)
+
+        btnLogin.setOnClickListener {
+            if(etUser.text.toString() == "admin" || etPass.text.toString() == "admin")
+            {
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }

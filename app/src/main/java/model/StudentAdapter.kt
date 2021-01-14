@@ -1,14 +1,17 @@
 package model
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.sakriya.replicaapp.R
 
-class StudentAdapter(val lstStudent : ArrayList<Student>) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
+
+class StudentAdapter(val lstStudent : ArrayList<Student>, val context : Context) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     class StudentViewHolder(view:View) : RecyclerView.ViewHolder(view){
 
@@ -17,6 +20,7 @@ class StudentAdapter(val lstStudent : ArrayList<Student>) : RecyclerView.Adapter
         val tvAge : TextView
         val tvAddress : TextView
         val tvGender : TextView
+        val ivDelete : ImageView
 
         init{
             imageView = view.findViewById(R.id.imageView)
@@ -24,6 +28,7 @@ class StudentAdapter(val lstStudent : ArrayList<Student>) : RecyclerView.Adapter
             tvAge= view.findViewById(R.id.tvAge)
             tvAddress = view.findViewById(R.id.tvAddress)
             tvGender = view.findViewById(R.id.tvGender)
+            ivDelete = view.findViewById(R.id.delete)
         }
     }
 
@@ -40,6 +45,14 @@ class StudentAdapter(val lstStudent : ArrayList<Student>) : RecyclerView.Adapter
         holder.tvAge.text = student.studentAge.toString()
         holder.tvAddress.text = student.studentAddress
         holder.tvGender.text = student.studentGender
+
+
+        Glide.with(context).load(student.studentImage).into(holder.imageView)
+
+        holder.ivDelete.setOnClickListener {
+            lstStudent.removeAt(position)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {

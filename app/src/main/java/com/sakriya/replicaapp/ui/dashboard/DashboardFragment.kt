@@ -6,14 +6,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sakriya.replicaapp.R
+import com.sakriya.replicaapp.userList
+import model.Student
 
 class DashboardFragment : Fragment() {
 
@@ -23,8 +22,8 @@ class DashboardFragment : Fragment() {
     private lateinit var rgBtn: RadioGroup
     private lateinit var etAddress : EditText
     private lateinit var btnSave : Button
+    var gender = "Male"
 
-    var userList: ArrayList<NewUser> = arrayListOf()
 
 
     override fun onCreateView(
@@ -41,25 +40,44 @@ class DashboardFragment : Fragment() {
         rgBtn = root.findViewById(R.id.rgBtn)
         etAddress = root.findViewById(R.id.etAddress)
         btnSave = root.findViewById(R.id.btnSave)
+        rgBtn.setOnCheckedChangeListener { group, checkedId ->
 
+            when(checkedId)
+            {
+                R.id.rbMale ->{
+                    gender = "Male"
+                }
+                R.id.rbFemale->{
+                    gender = "Female"
+                }
+                R.id.rbOthers ->{
+                    gender = "Others"
+                }
+            }
+        }
+
+        btnSave.setOnClickListener {
+            addUser()
+        }
         return root
     }
 
     private fun addUser(){
 
-        btnSave.setOnClickListener {
+
 
             if (checkEmpty()){
-                val User = NewUser(etFname.text.toString(),etAge.text.toString().toInt(),rgBtn., etAddress.text.toString() )
+                val User = Student("",etFname.text.toString(),etAge.text.toString().toInt(),gender, etAddress.text.toString() )
                 userList.add(User)
-                val intent = Intent()
+                Toast.makeText(context,"Data is added",Toast.LENGTH_SHORT).show()
+                //val intent = Intent()
                 
 
 
             }
 
 
-        }
+
 
 
     }
@@ -75,12 +93,12 @@ class DashboardFragment : Fragment() {
                 flag = false
             }
             TextUtils.isEmpty(etAge.text) -> {
-                etAge.error = "Enter your first name"
+                etAge.error = "Enter age"
                 etAge.requestFocus()
                 flag = false
             }
             TextUtils.isEmpty(etAddress.text) -> {
-                etAddress.error = "Enter your last name"
+                etAddress.error = "Enter your address"
                 etAddress.requestFocus()
                 flag = false
             }
