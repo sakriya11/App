@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerView)
 
 
-        loadActor()
+
         val adapter =StudentAdapter(userList, container!!.context)
         recyclerView.layoutManager =LinearLayoutManager(context)
         recyclerView.adapter = adapter
@@ -45,9 +45,7 @@ class HomeFragment : Fragment() {
 
 
 
-    private fun loadActor(){
-  userList.add(Student("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"))
-    }
+
 
 
 

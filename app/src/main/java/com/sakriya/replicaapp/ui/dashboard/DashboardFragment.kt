@@ -67,13 +67,9 @@ class DashboardFragment : Fragment() {
 
 
             if (checkEmpty()){
-                val User = Student("",etFname.text.toString(),etAge.text.toString().toInt(),gender, etAddress.text.toString() )
+                val User = Student("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTugu0kegXOT1Gh1sgDVHvYjkGW29w19Hl9gQ&usqp=CAU",etFname.text.toString(),etAge.text.toString().toInt(),gender, etAddress.text.toString() )
                 userList.add(User)
                 Toast.makeText(context,"Data is added",Toast.LENGTH_SHORT).show()
-                //val intent = Intent()
-                
-
-
             }
 
 
